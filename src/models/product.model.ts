@@ -7,14 +7,12 @@ export class Product extends Entity {
     id: true,
     generated: false,
     required: true,
-    length: 3
   })
   productId: string;
 
   @property({
     type: 'string',
     required: true,
-    length: 20
   })
   productType: string;
 

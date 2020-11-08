@@ -4,17 +4,21 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
 import {Transaction} from '../models';
 import {TransactionRepository} from '../repositories';
@@ -22,8 +26,8 @@ import {TransactionRepository} from '../repositories';
 export class TransactionController {
   constructor(
     @repository(TransactionRepository)
-    public transactionRepository : TransactionRepository,
-  ) {}
+    public transactionRepository: TransactionRepository,
+  ) { }
 
   @post('/transactions', {
     responses: {
@@ -39,7 +43,7 @@ export class TransactionController {
         'application/json': {
           schema: getModelSchemaRef(Transaction, {
             title: 'NewTransaction',
-            
+
           }),
         },
       },
@@ -119,7 +123,7 @@ export class TransactionController {
     },
   })
   async findById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @param.filter(Transaction, {exclude: 'where'}) filter?: FilterExcludingWhere<Transaction>
   ): Promise<Transaction> {
     return this.transactionRepository.findById(id, filter);
@@ -133,7 +137,7 @@ export class TransactionController {
     },
   })
   async updateById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody({
       content: {
         'application/json': {
@@ -154,7 +158,7 @@ export class TransactionController {
     },
   })
   async replaceById(
-    @param.path.string('id') id: string,
+    @param.path.number('id') id: number,
     @requestBody() transaction: Transaction,
   ): Promise<void> {
     await this.transactionRepository.replaceById(id, transaction);
@@ -167,7 +171,7 @@ export class TransactionController {
       },
     },
   })
-  async deleteById(@param.path.string('id') id: string): Promise<void> {
+  async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.transactionRepository.deleteById(id);
   }
 }

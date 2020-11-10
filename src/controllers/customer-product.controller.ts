@@ -2,7 +2,6 @@ import {
   Count,
   CountSchema,
   Filter,
-  FilterExcludingWhere,
   repository,
   Where
 } from '@loopback/repository';
@@ -62,26 +61,26 @@ export class CustomerProductController {
     return this.customerProductRepository.count(where);
   }
 
-  @get('/customer-products', {
-    responses: {
-      '200': {
-        description: 'Array of CustomerProduct model instances',
-        content: {
-          'application/json': {
-            schema: {
-              type: 'array',
-              items: getModelSchemaRef(CustomerProduct, {includeRelations: true}),
-            },
-          },
-        },
-      },
-    },
-  })
-  async find(
-    @param.filter(CustomerProduct) filter?: Filter<CustomerProduct>,
-  ): Promise<CustomerProduct[]> {
-    return this.customerProductRepository.find(filter);
-  }
+  // @get('/customer-products', {
+  //   responses: {
+  //     '200': {
+  //       description: 'Array of CustomerProduct model instances',
+  //       content: {
+  //         'application/json': {
+  //           schema: {
+  //             type: 'array',
+  //             items: getModelSchemaRef(CustomerProduct, {includeRelations: true}),
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  // })
+  // async find(
+  //   @param.filter(CustomerProduct) filter?: Filter<CustomerProduct>,
+  // ): Promise<CustomerProduct[]> {
+  //   return this.customerProductRepository.find(filter);
+  // }
 
   @patch('/customer-products', {
     responses: {
@@ -173,22 +172,24 @@ export class CustomerProductController {
   @get('/customer-products/{customerId}', {
     responses: {
       '200': {
-        description: 'CustomerProduct model instance',
+        description: 'Array of CustomerProduct model instances',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(CustomerProduct, {includeRelations: true}),
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(CustomerProduct, {includeRelations: true}),
+            },
           },
         },
       },
     },
   })
-  async findOne(
+  async find(
     @param.path.string('customerId') customerId: string,
-    @param.filter(CustomerProduct, {exclude: 'where'}) filter?: FilterExcludingWhere<CustomerProduct>
-  ): Promise<CustomerProduct> {
-    const customerProduct = await this.customerProductRepository.findOne({where: {customerId}});
-    const customerProductId = customerProduct ? customerProduct.customerProductId : 0;
+    @param.filter(CustomerProduct, {exclude: 'where'}) filter?: Filter<CustomerProduct>,
+  ): Promise<CustomerProduct[]> {
+    const customerProducts = await this.customerProductRepository.find({where: {customerId}});
 
-    return this.customerProductRepository.findById(customerProductId, filter);
+    return this.customerProductRepository.find({where: {customerId}});
   }
 }

@@ -18,7 +18,7 @@ import {
 } from '@loopback/rest';
 import {Customer} from '../models';
 import {CustomerRepository} from '../repositories';
-import {validateLoginCredentials} from '../services/customer-login-validation';
+import {validateLoginCredentials} from '../services/customer.service';
 
 export class CustomerController {
   constructor(

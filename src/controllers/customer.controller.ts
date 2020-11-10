@@ -4,26 +4,27 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {Customer} from '../models';
 import {CustomerRepository} from '../repositories';
+import {validateLoginCredentials} from '../services/customer-login-validation';
 
 export class CustomerController {
   constructor(
     @repository(CustomerRepository)
-    public customerRepository : CustomerRepository,
-  ) {}
+    public customerRepository: CustomerRepository,
+  ) { }
 
   @post('/customers', {
     responses: {
@@ -39,7 +40,7 @@ export class CustomerController {
         'application/json': {
           schema: getModelSchemaRef(Customer, {
             title: 'NewCustomer',
-            
+
           }),
         },
       },
@@ -122,6 +123,30 @@ export class CustomerController {
     @param.path.string('id') id: string,
     @param.filter(Customer, {exclude: 'where'}) filter?: FilterExcludingWhere<Customer>
   ): Promise<Customer> {
+    return this.customerRepository.findById(id, filter);
+  }
+
+  @get('/customers/{id}/{password}', {
+    responses: {
+      '200': {
+        description: 'Customer model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(Customer, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async findOne(
+    @param.path.string('id') id: string,
+    @param.path.string('password') password: string,
+    @param.filter(Customer, {exclude: 'where'}) filter?: FilterExcludingWhere<Customer>
+  ): Promise<Customer> {
+    const customer = await this.customerRepository.findById(id);
+
+    validateLoginCredentials(customer, password);
+
     return this.customerRepository.findById(id, filter);
   }
 

@@ -17,6 +17,7 @@ import {
 } from '@loopback/rest';
 import {Transaction} from '../models';
 import {TransactionRepository} from '../repositories';
+import {calculateAvaregeAmount} from '../services/transaction.service';
 
 export class TransactionController {
   constructor(
@@ -190,6 +191,8 @@ export class TransactionController {
     @param.filter(Transaction, {exclude: 'where'}) filter?: Filter<Transaction>,
   ): Promise<Transaction[]> {
     const transactions = await this.transactionRepository.find({where: {productId}});
+
+    calculateAvaregeAmount(transactions);
 
     return this.transactionRepository.find({where: {productId}});
   }

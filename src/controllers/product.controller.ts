@@ -4,17 +4,21 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
 import {Product} from '../models';
 import {ProductRepository} from '../repositories';
@@ -22,8 +26,8 @@ import {ProductRepository} from '../repositories';
 export class ProductController {
   constructor(
     @repository(ProductRepository)
-    public productRepository : ProductRepository,
-  ) {}
+    public productRepository: ProductRepository,
+  ) { }
 
   @post('/products', {
     responses: {
@@ -39,7 +43,7 @@ export class ProductController {
         'application/json': {
           schema: getModelSchemaRef(Product, {
             title: 'NewProduct',
-            
+
           }),
         },
       },
@@ -47,20 +51,6 @@ export class ProductController {
     product: Product,
   ): Promise<Product> {
     return this.productRepository.create(product);
-  }
-
-  @get('/products/count', {
-    responses: {
-      '200': {
-        description: 'Product model count',
-        content: {'application/json': {schema: CountSchema}},
-      },
-    },
-  })
-  async count(
-    @param.where(Product) where?: Where<Product>,
-  ): Promise<Count> {
-    return this.productRepository.count(where);
   }
 
   @get('/products', {

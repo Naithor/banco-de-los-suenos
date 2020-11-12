@@ -1,0 +1,1783 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "banco-de-los-suenos",
+    "version": "0.0.1",
+    "description": "Technical test of Ecosystems company",
+    "contact": {
+      "name": "Nicolas",
+      "email": "naithor@gmail.com"
+    }
+  },
+  "paths": {
+    "/customer-products/{id}": {
+      "put": {
+        "x-controller-name": "CustomerProductController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "CustomerProductController"
+        ],
+        "responses": {
+          "204": {
+            "description": "CustomerProduct PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerProduct"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "CustomerProductController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "CustomerProductController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "CustomerProductController"
+        ],
+        "responses": {
+          "204": {
+            "description": "CustomerProduct PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerProductPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "CustomerProductController.updateById"
+      },
+      "delete": {
+        "x-controller-name": "CustomerProductController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "CustomerProductController"
+        ],
+        "responses": {
+          "204": {
+            "description": "CustomerProduct DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "CustomerProductController.deleteById"
+      }
+    },
+    "/customer-products/{customerId}": {
+      "get": {
+        "x-controller-name": "CustomerProductController",
+        "x-operation-name": "find",
+        "tags": [
+          "CustomerProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of CustomerProduct model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomerProductWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerProduct.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "CustomerProductController.find"
+      }
+    },
+    "/customer-products": {
+      "post": {
+        "x-controller-name": "CustomerProductController",
+        "x-operation-name": "create",
+        "tags": [
+          "CustomerProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "CustomerProduct model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerProduct"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCustomerProduct"
+              }
+            }
+          }
+        },
+        "operationId": "CustomerProductController.create"
+      },
+      "patch": {
+        "x-controller-name": "CustomerProductController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "CustomerProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "CustomerProduct PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "CustomerProduct.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<CustomerProduct>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerProductPartial"
+              }
+            }
+          }
+        },
+        "operationId": "CustomerProductController.updateAll"
+      }
+    },
+    "/customers/{id}/{password}": {
+      "get": {
+        "x-controller-name": "CustomerController",
+        "x-operation-name": "findOne",
+        "tags": [
+          "CustomerController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "password",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "CustomerController.findOne"
+      }
+    },
+    "/customers/{id}": {
+      "put": {
+        "x-controller-name": "CustomerController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "CustomerController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Customer PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "CustomerController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "CustomerController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "CustomerController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Customer PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "CustomerController.updateById"
+      },
+      "delete": {
+        "x-controller-name": "CustomerController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "CustomerController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Customer DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "CustomerController.deleteById"
+      }
+    },
+    "/customers": {
+      "post": {
+        "x-controller-name": "CustomerController",
+        "x-operation-name": "create",
+        "tags": [
+          "CustomerController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCustomer"
+              }
+            }
+          }
+        },
+        "operationId": "CustomerController.create"
+      },
+      "patch": {
+        "x-controller-name": "CustomerController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "CustomerController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Customer.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Customer>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerPartial"
+              }
+            }
+          }
+        },
+        "operationId": "CustomerController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "CustomerController",
+        "x-operation-name": "find",
+        "tags": [
+          "CustomerController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Customer model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomerWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "CustomerController.find"
+      }
+    },
+    "/ping": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "ping",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "PingController.ping"
+      }
+    },
+    "/products/{id}": {
+      "put": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Product PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProductController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Product PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProductController.updateById"
+      },
+      "get": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "findById",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Product model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProductController.findById"
+      },
+      "delete": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Product DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "ProductController.deleteById"
+      }
+    },
+    "/products": {
+      "post": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "create",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Product model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProduct"
+              }
+            }
+          }
+        },
+        "operationId": "ProductController.create"
+      },
+      "patch": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Product PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Product.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Product>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductPartial"
+              }
+            }
+          }
+        },
+        "operationId": "ProductController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "ProductController",
+        "x-operation-name": "find",
+        "tags": [
+          "ProductController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Product model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProductController.find"
+      }
+    },
+    "/transactions/{id}": {
+      "put": {
+        "x-controller-name": "TransactionController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "TransactionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Transaction PUT success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transaction"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "TransactionController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "TransactionController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "TransactionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Transaction PATCH success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionPartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "TransactionController.updateById"
+      },
+      "delete": {
+        "x-controller-name": "TransactionController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "TransactionController"
+        ],
+        "responses": {
+          "204": {
+            "description": "Transaction DELETE success"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "TransactionController.deleteById"
+      }
+    },
+    "/transactions/{productId}": {
+      "get": {
+        "x-controller-name": "TransactionController",
+        "x-operation-name": "find",
+        "tags": [
+          "TransactionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Transaction model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "TransactionController.find"
+      }
+    },
+    "/transactions": {
+      "post": {
+        "x-controller-name": "TransactionController",
+        "x-operation-name": "create",
+        "tags": [
+          "TransactionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTransaction"
+              }
+            }
+          }
+        },
+        "operationId": "TransactionController.create"
+      },
+      "patch": {
+        "x-controller-name": "TransactionController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "TransactionController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Transaction PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Transaction.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Transaction>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionPartial"
+              }
+            }
+          }
+        },
+        "operationId": "TransactionController.updateAll"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "CustomerProduct": {
+        "title": "CustomerProduct",
+        "type": "object",
+        "properties": {
+          "customerProductId": {
+            "type": "number"
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "productSate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "customerId",
+          "productId",
+          "productSate"
+        ],
+        "additionalProperties": false
+      },
+      "NewCustomerProduct": {
+        "title": "NewCustomerProduct",
+        "type": "object",
+        "description": "(tsType: CustomerProduct, schemaOptions: { title: 'NewCustomerProduct' })",
+        "properties": {
+          "customerProductId": {
+            "type": "number"
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "productSate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "customerId",
+          "productId",
+          "productSate"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "CustomerProduct"
+      },
+      "CustomerProductPartial": {
+        "title": "CustomerProductPartial",
+        "type": "object",
+        "description": "(tsType: Partial<CustomerProduct>, schemaOptions: { partial: true })",
+        "properties": {
+          "customerProductId": {
+            "type": "number"
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "productSate": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<CustomerProduct>"
+      },
+      "CustomerProductWithRelations": {
+        "title": "CustomerProductWithRelations",
+        "type": "object",
+        "description": "(tsType: CustomerProductWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "customerProductId": {
+            "type": "number"
+          },
+          "customerId": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "productSate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "customerId",
+          "productId",
+          "productSate"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "CustomerProductWithRelations"
+      },
+      "Customer": {
+        "title": "Customer",
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "customerId",
+          "password"
+        ],
+        "additionalProperties": false
+      },
+      "NewCustomer": {
+        "title": "NewCustomer",
+        "type": "object",
+        "description": "(tsType: Customer, schemaOptions: { title: 'NewCustomer' })",
+        "properties": {
+          "customerId": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "customerId",
+          "password"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "Customer"
+      },
+      "CustomerWithRelations": {
+        "title": "CustomerWithRelations",
+        "type": "object",
+        "description": "(tsType: CustomerWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "customerId": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "customerId",
+          "password"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "CustomerWithRelations"
+      },
+      "CustomerPartial": {
+        "title": "CustomerPartial",
+        "type": "object",
+        "description": "(tsType: Partial<Customer>, schemaOptions: { partial: true })",
+        "properties": {
+          "customerId": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Customer>"
+      },
+      "Product": {
+        "title": "Product",
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "productType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "productId",
+          "productType"
+        ],
+        "additionalProperties": false
+      },
+      "NewProduct": {
+        "title": "NewProduct",
+        "type": "object",
+        "description": "(tsType: Product, schemaOptions: { title: 'NewProduct' })",
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "productType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "productId",
+          "productType"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "Product"
+      },
+      "ProductWithRelations": {
+        "title": "ProductWithRelations",
+        "type": "object",
+        "description": "(tsType: ProductWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "productType": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "productId",
+          "productType"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "ProductWithRelations"
+      },
+      "ProductPartial": {
+        "title": "ProductPartial",
+        "type": "object",
+        "description": "(tsType: Partial<Product>, schemaOptions: { partial: true })",
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "productType": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Product>"
+      },
+      "Transaction": {
+        "title": "Transaction",
+        "type": "object",
+        "properties": {
+          "transactionId": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "shopName": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "transactionState": {
+            "type": "string"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "productId",
+          "shopName",
+          "amount",
+          "transactionState",
+          "transactionDate"
+        ],
+        "additionalProperties": false
+      },
+      "NewTransaction": {
+        "title": "NewTransaction",
+        "type": "object",
+        "description": "(tsType: Transaction, schemaOptions: { title: 'NewTransaction' })",
+        "properties": {
+          "transactionId": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "shopName": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "transactionState": {
+            "type": "string"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "productId",
+          "shopName",
+          "amount",
+          "transactionState",
+          "transactionDate"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "Transaction"
+      },
+      "TransactionPartial": {
+        "title": "TransactionPartial",
+        "type": "object",
+        "description": "(tsType: Partial<Transaction>, schemaOptions: { partial: true })",
+        "properties": {
+          "transactionId": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "shopName": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "transactionState": {
+            "type": "string"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Transaction>"
+      },
+      "TransactionWithRelations": {
+        "title": "TransactionWithRelations",
+        "type": "object",
+        "description": "(tsType: TransactionWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "transactionId": {
+            "type": "number"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "shopName": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "transactionState": {
+            "type": "string"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "productId",
+          "shopName",
+          "amount",
+          "transactionState",
+          "transactionDate"
+        ],
+        "additionalProperties": false,
+        "x-typescript-type": "TransactionWithRelations"
+      },
+      "CustomerProduct.Filter": {
+        "type": "object",
+        "title": "CustomerProduct.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "customerProductId": {
+                    "type": "boolean"
+                  },
+                  "customerId": {
+                    "type": "boolean"
+                  },
+                  "productId": {
+                    "type": "boolean"
+                  },
+                  "productSate": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "customerProductId",
+                    "customerId",
+                    "productId",
+                    "productSate"
+                  ],
+                  "example": "customerProductId"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "CustomerProduct.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<CustomerProduct>"
+      },
+      "loopback.Count": {
+        "type": "object",
+        "title": "loopback.Count",
+        "x-typescript-type": "@loopback/repository#Count",
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "Customer.Filter": {
+        "type": "object",
+        "title": "Customer.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "customerId": {
+                    "type": "boolean"
+                  },
+                  "password": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "customerId",
+                    "password"
+                  ],
+                  "example": "customerId"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Customer.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Customer>"
+      },
+      "Customer.Filter1": {
+        "type": "object",
+        "title": "Customer.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "Customer.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "customerId": {
+                    "type": "boolean"
+                  },
+                  "password": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "customerId",
+                    "password"
+                  ],
+                  "example": "customerId"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Customer.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Customer>"
+      },
+      "PingResponse": {
+        "type": "object",
+        "title": "PingResponse",
+        "properties": {
+          "greeting": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "properties": {
+              "Content-Type": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "Product.Filter": {
+        "type": "object",
+        "title": "Product.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "boolean"
+                  },
+                  "productType": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "productId",
+                    "productType"
+                  ],
+                  "example": "productId"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Product.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Product>"
+      },
+      "Product.Filter1": {
+        "type": "object",
+        "title": "Product.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "Product.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "productId": {
+                    "type": "boolean"
+                  },
+                  "productType": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "productId",
+                    "productType"
+                  ],
+                  "example": "productId"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Product.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Product>"
+      },
+      "Transaction.Filter": {
+        "type": "object",
+        "title": "Transaction.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "transactionId": {
+                    "type": "boolean"
+                  },
+                  "productId": {
+                    "type": "boolean"
+                  },
+                  "shopName": {
+                    "type": "boolean"
+                  },
+                  "amount": {
+                    "type": "boolean"
+                  },
+                  "transactionState": {
+                    "type": "boolean"
+                  },
+                  "transactionDate": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "transactionId",
+                    "productId",
+                    "shopName",
+                    "amount",
+                    "transactionState",
+                    "transactionDate"
+                  ],
+                  "example": "transactionId"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Transaction.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Transaction>"
+      }
+    }
+  }
+}

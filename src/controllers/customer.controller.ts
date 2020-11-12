@@ -50,20 +50,6 @@ export class CustomerController {
     return this.customerRepository.create(customer);
   }
 
-  @get('/customers/count', {
-    responses: {
-      '200': {
-        description: 'Customer model count',
-        content: {'application/json': {schema: CountSchema}},
-      },
-    },
-  })
-  async count(
-    @param.where(Customer) where?: Where<Customer>,
-  ): Promise<Count> {
-    return this.customerRepository.count(where);
-  }
-
   @get('/customers', {
     responses: {
       '200': {
@@ -105,25 +91,6 @@ export class CustomerController {
     @param.where(Customer) where?: Where<Customer>,
   ): Promise<Count> {
     return this.customerRepository.updateAll(customer, where);
-  }
-
-  @get('/customers/{id}', {
-    responses: {
-      '200': {
-        description: 'Customer model instance',
-        content: {
-          'application/json': {
-            schema: getModelSchemaRef(Customer, {includeRelations: true}),
-          },
-        },
-      },
-    },
-  })
-  async findById(
-    @param.path.string('id') id: string,
-    @param.filter(Customer, {exclude: 'where'}) filter?: FilterExcludingWhere<Customer>
-  ): Promise<Customer> {
-    return this.customerRepository.findById(id, filter);
   }
 
   @get('/customers/{id}/{password}', {

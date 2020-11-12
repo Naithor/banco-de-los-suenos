@@ -49,41 +49,6 @@ export class TransactionController {
     return this.transactionRepository.create(transaction);
   }
 
-  @get('/transactions/count', {
-    responses: {
-      '200': {
-        description: 'Transaction model count',
-        content: {'application/json': {schema: CountSchema}},
-      },
-    },
-  })
-  async count(
-    @param.where(Transaction) where?: Where<Transaction>,
-  ): Promise<Count> {
-    return this.transactionRepository.count(where);
-  }
-
-  // @get('/transactions', {
-  //   responses: {
-  //     '200': {
-  //       description: 'Array of Transaction model instances',
-  //       content: {
-  //         'application/json': {
-  //           schema: {
-  //             type: 'array',
-  //             items: getModelSchemaRef(Transaction, {includeRelations: true}),
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // })
-  // async find(
-  //   @param.filter(Transaction) filter?: Filter<Transaction>,
-  // ): Promise<Transaction[]> {
-  //   return this.transactionRepository.find(filter);
-  // }
-
   @patch('/transactions', {
     responses: {
       '200': {
@@ -105,25 +70,6 @@ export class TransactionController {
   ): Promise<Count> {
     return this.transactionRepository.updateAll(transaction, where);
   }
-
-  // @get('/transactions/{id}', {
-  //   responses: {
-  //     '200': {
-  //       description: 'Transaction model instance',
-  //       content: {
-  //         'application/json': {
-  //           schema: getModelSchemaRef(Transaction, {includeRelations: true}),
-  //         },
-  //       },
-  //     },
-  //   },
-  // })
-  // async findById(
-  //   @param.path.number('id') id: number,
-  //   @param.filter(Transaction, {exclude: 'where'}) filter?: FilterExcludingWhere<Transaction>
-  // ): Promise<Transaction> {
-  //   return this.transactionRepository.findById(id, filter);
-  // }
 
   @patch('/transactions/{id}', {
     responses: {

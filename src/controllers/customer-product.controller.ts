@@ -47,41 +47,6 @@ export class CustomerProductController {
     return this.customerProductRepository.create(customerProduct);
   }
 
-  @get('/customer-products/count', {
-    responses: {
-      '200': {
-        description: 'CustomerProduct model count',
-        content: {'application/json': {schema: CountSchema}},
-      },
-    },
-  })
-  async count(
-    @param.where(CustomerProduct) where?: Where<CustomerProduct>,
-  ): Promise<Count> {
-    return this.customerProductRepository.count(where);
-  }
-
-  // @get('/customer-products', {
-  //   responses: {
-  //     '200': {
-  //       description: 'Array of CustomerProduct model instances',
-  //       content: {
-  //         'application/json': {
-  //           schema: {
-  //             type: 'array',
-  //             items: getModelSchemaRef(CustomerProduct, {includeRelations: true}),
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // })
-  // async find(
-  //   @param.filter(CustomerProduct) filter?: Filter<CustomerProduct>,
-  // ): Promise<CustomerProduct[]> {
-  //   return this.customerProductRepository.find(filter);
-  // }
-
   @patch('/customer-products', {
     responses: {
       '200': {
@@ -103,25 +68,6 @@ export class CustomerProductController {
   ): Promise<Count> {
     return this.customerProductRepository.updateAll(customerProduct, where);
   }
-
-  // @get('/customer-products/{id}', {
-  //   responses: {
-  //     '200': {
-  //       description: 'CustomerProduct model instance',
-  //       content: {
-  //         'application/json': {
-  //           schema: getModelSchemaRef(CustomerProduct, {includeRelations: true}),
-  //         },
-  //       },
-  //     },
-  //   },
-  // })
-  // async findById(
-  //   @param.path.number('id') id: number,
-  //   @param.filter(CustomerProduct, {exclude: 'where'}) filter?: FilterExcludingWhere<CustomerProduct>
-  // ): Promise<CustomerProduct> {
-  //   return this.customerProductRepository.findById(id, filter);
-  // }
 
   @patch('/customer-products/{id}', {
     responses: {
@@ -188,8 +134,6 @@ export class CustomerProductController {
     @param.path.string('customerId') customerId: string,
     @param.filter(CustomerProduct, {exclude: 'where'}) filter?: Filter<CustomerProduct>,
   ): Promise<CustomerProduct[]> {
-    const customerProducts = await this.customerProductRepository.find({where: {customerId}});
-
     return this.customerProductRepository.find({where: {customerId}});
   }
 }
